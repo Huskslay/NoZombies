@@ -1,0 +1,9 @@
+{
+   "name": "NoZombies",
+   "description": "Mod that removes zombies in all difficulties, not just tenderfoot",
+   "version_number": "1.0.1",
+   "dependencies": [
+      "BepInEx-BepInExPack_PEAK-5.4.75301"
+   ],
+   "website_url": "https://github.com/Huskslay/NoZombies"
+}
