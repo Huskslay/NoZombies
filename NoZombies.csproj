@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <AssemblyName>Huskslay-NoZombies</AssemblyName>
+        <Product>Huskslay - No Zombies</Product>
+        <Version>1.0.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
+        <RootNamespace>NoZombies</RootNamespace>
+    </PropertyGroup>
+
+	<PropertyGroup>
+		<GameRefs>G:\SteamLibrary\steamapps\common\PEAK</GameRefs>
+		<BepRefs>$(GameRefs)\BepInEx\plugins</BepRefs>
+		<ManagedRefs>$(GameRefs)\PEAK_Data\Managed</ManagedRefs>
+	</PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+        <PackageReference Include="UnityEngine.Modules" Version="6000.0.36" IncludeAssets="compile" />
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+    </ItemGroup>
+  
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <Reference Include="Assembly-CSharp" Publicize="true">
+        <HintPath>..\..\..\..\SteamLibrary\steamapps\common\PEAK\PEAK_Data\Managed\Assembly-CSharp.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="bin\Debug\$(TargetFramework)\$(AssemblyName).dll" DestinationFolder="$(BepRefs)\$(AssemblyName)" />
+    </Target>
+	
+</Project>
